@@ -1,4 +1,4 @@
-
+const path = require("path");
 const express = require("express");
 const sqlite = require("sqlite");
 const sqlite3 = require("sqlite3");
@@ -6,8 +6,8 @@ const sqlite3 = require("sqlite3");
 const app = express();
 app.use(express.json());
 
-const dbPath = "./database/books.db";
-const PORT = 3000;
+const dbPath = path.join(__dirname, "database", "books.db");
+const PORT = process.env.PORT || 3000;
 
 const initializeDBAndServer = async () => {
   try {
@@ -133,7 +133,7 @@ const initializeDBAndServer = async () => {
     });
 
     // Start server after database connection
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server running at http://localhost:${PORT}/`);
     });
 
